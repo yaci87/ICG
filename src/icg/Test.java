@@ -11,6 +11,6 @@ public class Test {
     public static void main(String[] args) {
         int pictureWidth = 600;
         int pictureHeigt = 600;
-        new ImageGenerator(new LineImpl(new VectorImpl(0,0,0),new VectorImpl(pictureWidth, pictureHeigt, 0)), pictureWidth, pictureHeigt, "line.png");
+        new ImageGenerator(new LineImpl(new VectorImpl(0,0,0),new VectorImpl(1, 1, 0)), pictureWidth, pictureHeigt, "line.png");
     }
 }
