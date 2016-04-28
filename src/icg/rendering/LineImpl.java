@@ -10,12 +10,12 @@ public class LineImpl extends Line {
     private Color color;
 	/**
 	 * constructor, sets vertices of this line
-	 * default color black
+	 * default color white
 	 * @param p1 the first vertex
 	 * @param p2 the second vertex
 	 */
 	public LineImpl(Vector p1, Vector p2) {
-        this(p1, p2, new RGBColorImpl(0, 0, 0));
+        this(p1, p2, new RGBColorImpl(1, 1, 1));
 	}
 
     public LineImpl(Vector p1, Vector p2, Color color){
@@ -39,7 +39,7 @@ public class LineImpl extends Line {
         if(distance < 0.5){
             return color;
         }
-        return new RGBColorImpl(1, 1, 1);
+        return new RGBColorImpl(0, 0, 0);
 	}
 
 	/*
@@ -48,7 +48,40 @@ public class LineImpl extends Line {
 	 */
 	@Override
 	public ArrayList<Pixel> getPixels(int width, int height){
-        //Bresenham Algorithmus, siehe Wikipedia
-        return null;
-	}
+        ArrayList<Pixel> pixels = new ArrayList<>();
+        int x0 = (int)p1.x();
+        int x1 = (int)p2.x();
+        int y0 = (int)p1.y();
+        int y1 = (int)p2.y();
+        int dx = Math.abs(x1 - x0);
+        int dy = Math.abs(y1 - y0);
+
+        int sx = x0 < x1 ? 1 : -1;
+        int sy = y0 < y1 ? 1 : -1;
+
+        int err = dx-dy;
+        int e2;
+        int currentX = x0;
+        int currentY = y0;
+
+        while(true) {
+            pixels.add(new Pixel(currentX, currentY, color));
+
+            if(currentX == x1 && currentY == y1) {
+                break;
+            }
+
+            e2 = 2*err;
+            if(e2 > -1 * dy) {
+                err = err - dy;
+                currentX = currentX + sx;
+            }
+
+            if(e2 < dx) {
+                err = err + dx;
+                currentY = currentY + sy;
+            }
+        }
+        return pixels;
+    }
 }
