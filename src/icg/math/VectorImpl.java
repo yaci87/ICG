@@ -4,6 +4,9 @@ import ogl.vecmath.Vector;
 
 import java.nio.FloatBuffer;
 
+import static ogl.vecmathimp.FactoryDefault.vecmath;
+
+
 /**
  * Created by david on 26.04.16.
  */
@@ -35,7 +38,7 @@ public class VectorImpl implements Vector{
 
     @Override
     public Vector add(Vector v) {
-        return ogl.vecmathimp.FactoryDefault.vecmath.vector(v.x() + x(), v.y() + y(), v.z() + z());
+        return new VectorImpl(v.x() + x, v.y() + y, v.z() + z);
     }
 
     @Override
@@ -45,12 +48,12 @@ public class VectorImpl implements Vector{
 
     @Override
     public Vector mult(float s) {
-        return null;
+        return new VectorImpl(s * x, s * y, s * z);
     }
 
     @Override
     public Vector mult(Vector v) {
-        return null;
+        return new VectorImpl(x*v.x(), y*v.y(), z*v.z());
     }
 
     @Override
@@ -60,12 +63,12 @@ public class VectorImpl implements Vector{
 
     @Override
     public Vector normalize() {
-        return null;
+        return this.mult(1/length());
     }
 
     @Override
     public float dot(Vector v) {
-        return 0;
+        return x*v.x()+y*v.y()+z*v.z();
     }
 
     @Override
@@ -80,21 +83,27 @@ public class VectorImpl implements Vector{
 
     @Override
     public FloatBuffer asBuffer() {
+        //TODO
         return null;
     }
 
     @Override
     public void fillBuffer(FloatBuffer buf) {
-
+        //TODO
     }
 
     @Override
     public int compareTo(Vector o) {
-        return 0;
+        return ((Float)this.length()).compareTo(o.length());
     }
 
     @Override
     public int size() {
         return 3;
+    }
+
+    @Override
+    public String toString(){
+        return "["+x+","+y+","+z+"]";
     }
 }
