@@ -1,6 +1,7 @@
 package icg.math;
 
 import ogl.vecmath.Color;
+import ogl.vecmath.Factory;
 
 import java.nio.FloatBuffer;
 
@@ -40,12 +41,12 @@ public class YUVColorImpl implements Color {
 
     @Override
     public float getR() {
-        return 0;
+        return this.y + this.v / 0.877f;
     }
 
     @Override
     public float getG() {
-        return 0;
+        return this.y / 0.587f - 0.299f/0.587f * this.getR() - 0.114f / 0.587f * this.getB();
     }
 
     @Override
@@ -95,7 +96,7 @@ public class YUVColorImpl implements Color {
 
     @Override
     public int toAwtColor() {
-        return 0;
+        return new java.awt.Color(this.getR(),this.getG(), this.getB()).getRGB();
     }
 
     @Override
@@ -106,5 +107,10 @@ public class YUVColorImpl implements Color {
     @Override
     public int size() {
         return 0;
+    }
+
+    @Override
+    public String toString(){
+        return "YUV("+this.getY()+", "+this.getU()+", "+this.getV()+")";
     }
 }
